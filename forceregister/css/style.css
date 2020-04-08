@@ -1,0 +1,47 @@
+.displayNone{
+    display: none;
+}
+.forceregister{
+    position: absolute !important;
+    z-index: 10 !important;
+    background: rgba(255,255,255,0.8) !important;
+    width: 100%;}
+
+.contenedor_message{
+    width: 90% !important;
+    margin: auto !important;
+    margin-top: auto !important;
+    text-align: center !important;
+    padding: 20px !important;
+    background: #fff !important;
+    margin-top: 10px !important;
+    line-height: 20px !important;
+}
+
+@media screen and (min-width:995){
+    .contenedor_message{
+        width: 500px;
+    }
+    .contenedor_message_fixed{
+        position: fixed;
+        bottom: 20px;
+        left: 35%;
+    } 
+}
+.contenedor_message_fixed{
+    position: fixed;
+    bottom: 200px;
+    max-width: 600px;
+}
+
+.contenedor_message p {
+    font-weight: bold !important;
+    color: #f47c14 !important;
+}
+
+.contenedor_message a {
+    font-weight: bold !important;
+}
+.blur{
+    filter: blur(0.8px) !important;
+}

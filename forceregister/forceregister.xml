@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content">
+<name>plg_content_forceregister</name>
+<creationDate>April 2020</creationDate>
+<author>Jose Javier Saldaña Alfonso</author>
+<authorEmail>joseph.xavi.sa@gmail.com</authorEmail>
+<authorUrl>idsopublicidad.com</authorUrl>
+<copyright>Copyright (C) 2020 Open Source Matters. All rights reserved</copyright>
+<license>License GNU/GPL</license>
+<version>1.0</version>
+<description>A traves de este plugin se oculta parte del contenido y forza registrarse al visitante</description>
+<files>
+   <filename plugin="forceregister">forceregister.php</filename>
+   <folder>css</folder>
+   <folder>js</folder>
+	<folder>languaje</folder>
+</files>
+<languages folder="./languaje/es-CO">
+		<language tag="es-CO">es-CO.plg_content_forceregister.sys.ini</language>
+		<language tag="es-CO">es-CO.plg_content_forceregister.ini</language>
+</languages>
+<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="message"
+					type="textarea"
+					label="PLG_CONTENT_FORCEREGISTER_PARAM_MESSAGE_LABEL"
+					description="PLG_CONTENT_FORCEREGISTER_PARAM_MESSAGE_DESCRIPTION"
+					default="Nuestro contenido es gratis... Solo registrate para seguir navegando"
+                    rows="5"
+                    
+                    guide="Añade la descripcion que aparecera en el cuadro para forzar registro"
+                    filter="raw"
+					>
+					
+				</field>
+				<field 
+					name="check" 
+					type="radio" 
+					default="0" 
+					label="PLG_CONTENT_FORCEREGISTER_PARAM_CHECK_LABEL" 
+					description="PLG_CONTENT_FORCEREGISTER_PARAM_CHECK_DESCRIPTION" 
+					class="btn-group">
+						<option value="0">No</option>
+						<option value="1">Si</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

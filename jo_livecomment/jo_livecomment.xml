@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content" method="upgrade">
+	<name>Plugin Comentarios En vivo</name>
+	<author>Desarrollado por Javier Saldaña</author>
+	<creationDate>28th Abril, 2019</creationDate>
+	<copyright>Publimotos.com All rights reserved.</copyright>
+	<authorEmail>joseph.xavi.sa@gmil.com</authorEmail>
+	<authorUrl>idsopublicidad.xyz</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>3.1</version>
+	<description>PLG_CONTENT_JO_LIVECOMMENT_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="jo_livecomment">jo_livecomment.php</filename>
+		<filename>index.html</filename>
+		<folder>language</folder>
+	</files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="spacer4" type="spacer" class="text" label="PLG_JO_LIVECOMMENT_CREATE_APP_FACEBOOK"/>			
+				
+			</fieldset>
+		</fields>
+	</config>
+</extension>
