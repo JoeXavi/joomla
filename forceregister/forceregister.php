@@ -34,7 +34,7 @@ class plgContentForceregister extends JPlugin {
 		
 		$url = JUri::base() . 'plugins/content/forceregister/css/style.css';
 		$urlJs = JUri::base() . 'plugins/content/forceregister/js/script.js';
-		$registrarse = JUri::base() . 'login2';
+		$registrarse = JUri::base() . $config['linkregister'];
 		//echo $url;
 		$document->addStyleSheet($url);
 		$document->addScript($urlJs);
@@ -46,6 +46,6 @@ class plgContentForceregister extends JPlugin {
 								 y vuelve para terminar de leer el articulo</div>
 								 </div>
 								 <div id='blurCont'>".$article->fulltext."</diV>";	
-		//var_dump($article);
+
 	}
 }
