@@ -38,11 +38,12 @@ class plgContentForceregister extends JPlugin {
 		//echo $url;
 		$document->addStyleSheet($url);
 		$document->addScript($urlJs);
+		
 		$article->fulltext = "<div class='displayNone' id='forceregister'>
 		<input type='hidden' id='ifloguin' value='".$config['check']."'>
 								<div class='contenedor_message'>
 								<p>".$config['message']."</p>
-								<br>Dale click en <a id='clickregister' href='".$registrarse."' >Registrarse</a>
+								<br>Click en <a id='clickregister' href='".$registrarse."?openview=2' >registrarse</a> o <a id='clickregister' href='".$registrarse."?openview=1' >iniciar sesión</a>
 								 y vuelve para terminar de leer el articulo</div>
 								 </div>
 								 <div id='blurCont'>".$article->fulltext."</diV>";	

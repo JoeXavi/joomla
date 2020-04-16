@@ -12,8 +12,9 @@
 	} else {
 		factory( jQuery );
 	}
-}(function( $ ) {
-
+}
+(function( $ ) {
+console.log("Funciona $")
 $.extend($.fn, {
 	// http://jqueryvalidation.org/validate/
 	validate: function( options ) {
@@ -58,6 +59,7 @@ $.extend($.fn, {
 
 			// validate the form on submit
 			this.on( "submit.validate", function( event ) {
+				
 				if ( validator.settings.debug ) {
 					// prevent form submit to be able to see console output
 					event.preventDefault();

@@ -119,6 +119,7 @@
 	margin: 0;
 	margin-right: 10px !important;
 	position: static !important;
+	padding: 5px;
 }
 
 .jd-register-login-wrapper .jd-inputbox-control label {

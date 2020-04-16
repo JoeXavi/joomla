@@ -4,8 +4,6 @@ let startApp = function() {
             auth2 = gapi.auth2.init({
                 client_id: '292053978628-dinmjr4ovqosig46qllndl7p6pahdae3.apps.googleusercontent.com',
                 cookiepolicy: 'single_host_origin',
-                // Request scopes in addition to 'profile' and 'email'
-                //scope: 'additional_scope'
             });
             attachSignin(document.getElementById('customBtn'));
             });
@@ -21,7 +19,7 @@ let startApp = function() {
                         pass: profile.getId()
                     }
                     
-                    console.log("Data send", data);
+                    console.log("Data send", "ok");
                     jQuery.ajax({
                         url: 'index.php?option=com_ajax&module=registerlogin&method=seeUserLogin&format=json',
                         type: 'POST',
@@ -31,13 +29,14 @@ let startApp = function() {
                             console.log("Data received",response);
                             if(response == 1){
                                 jQuery('#error_message1').html("Excelente :) Sesion iniciada puedes navegar en nuestros articulos");
+                                scrolls();
                                 success();
                                 jQuery('#error_message1').focus();
                                 localStorage.setItem("RegisterUser",true);
                                 sessionStorage.setItem("sesionuserpublimotos",true)
                                 }
                             else if(response === "register"){
-                                $("#register_view").prop("checked", true);
+                                jQuery("#register_view").prop("checked", true);
                                 let element = document.getElementById("endRegisterGoogle");
                                 let email1 = document.getElementById("jform_email2");
                                 email1.value = profile.getEmail();
@@ -58,6 +57,7 @@ let startApp = function() {
                             }
                             else {
                                 jQuery('#error_message1').html("Credenciales incorrectas");
+                                scrolls();
                                 error();
                             }
 
@@ -85,8 +85,17 @@ let startApp = function() {
             jQuery('#error_message1').css("background", "#dff0d8");
             jQuery('#error_message1').css("color", "#3c763d");
             jQuery('#error_message1').css("display", "inline-block");
-        }   
-        
+        }  
+
+        function scrolls(){
+            jQuery('html, body').stop().animate({
+                scrollTop: jQuery('#error_message1').offset().top - jQuery('#error_message1').outerHeight()
+            }, 1000);
+
+            setTimeout(function(){
+                window.location.href = jQuery('#urlbase').val();
+            },5000);
+        }
         
         
         

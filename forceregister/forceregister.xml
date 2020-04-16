@@ -32,7 +32,7 @@
                     
                     guide="Añade la descripcion que aparecera en el cuadro para forzar registro"
                     filter="raw"
-					/>
+					>
 					
 				</field>
 				<field 
@@ -51,8 +51,9 @@
 					type="text"
 					default="login"
 					label="PLG_CONTENT_FORCEREGISTER_PARAM_LINKREGISTER_LABEL"
-					description="PLG_CONTENT_FORCEREGISTER_PARAM_LINKREGISTER_DESCRIPTION"/>
-
+					description="PLG_CONTENT_FORCEREGISTER_PARAM_LINKREGISTER_DESCRIPTION"
+					>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

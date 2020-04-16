@@ -74,15 +74,37 @@ class modRegisterLoginHelper
 	public static function getUserLoginAjax(){
 
 		$app = JFactory::getApplication();
-		$username = $app->input->post->get('username');
+		$username = str_replace(".arroba","@",$app->input->post->get('username'));
 		$password = $app->input->post->get('password');
+
+		
+
 		$remember = $app->input->post->get('remember') ? "yes" : '';
 		$result = $app->login(array('username'=>$username,'password'=>$password), array('remember' => $remember));
 		$userid = JFactory::getUser()->id;
 		if(isset($userid) && !empty($userid)){
 			$result = true;
 		}else{
-			$result = false;
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select('id, username, email, password')
+				->from('#__users')
+				->where('email=' . $db->quote($username));
+			//echo $query;
+			$db->setQuery($query);
+			$result = $db->loadObject();
+			if ($result){
+				$user = JUser::getInstance($result->id);
+				$error = $app->login(array('username'=>$result->username,'password'=>$password));
+				$userid = JFactory::getUser()->id;
+				if(isset($userid) && !empty($userid)){
+					$result = true;
+				}else{
+					$result = false;
+				}
+			}
+			else
+				$result = false;
 		}
 		echo $result;
 		exit;
@@ -212,7 +234,7 @@ class modRegisterLoginHelper
 						$data['sitename'],
 						$data['siteurl'],
 						$data['username'],
-						$data['password_clear'] );
+						$data['password_clear']);
 				}
 				else
 				{
@@ -270,8 +292,13 @@ class modRegisterLoginHelper
 				$messge = JText::_('COM_USERS_REGISTRATION_COMPLETE_VERIFY');
 			}
 			$msg = $messge;
+			
+			
 			$data['success']  = true;
-			echo $msg; 
+			if($data['success'] == true)
+				echo $msg; 
+			else
+				echo false;
 			exit;
 		}
 	}

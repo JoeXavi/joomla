@@ -17,19 +17,15 @@ function hiddeContent(){
     let element = document.getElementById("forceregister");
         let elementBlur = document.getElementById("blurCont");
         let mensaje = document.getElementsByClassName("contenedor_message");
-        let win = window,
-        doc = document,
-        docElem = doc.documentElement,
-        body = doc.getElementsByTagName('body')[0]
-        let alto = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+        
 
         element.classList.remove("displayNone");
         element.classList.add("forceregister");
         let contElement = document.getElementsByClassName("article-content");
         element.style.width = contElement[0].clientWidth + "px";
-        element.style.height = contElement[0].clientHeight + "px";
-        let poElement = element.offsetTop;
-        let posContElement = element.offsetHeight;
+        element.style.height = elementBlur.scrollHeight + "px";
+        let poElement = element.getBoundingClientRect().top;
+        let posContElement = elementBlur.scrollHeight;
         elementBlur.classList.add("blur");
         linkRegister = document.getElementById("clickregister");
         

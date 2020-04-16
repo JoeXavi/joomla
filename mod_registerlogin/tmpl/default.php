@@ -38,6 +38,7 @@ $lang = 'en';
     <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?hl=<?php echo $lang; ?>"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="<?php echo JURI::root() .'modules/mod_registerlogin/tmpl/assets/jquery.registerloginplugin.js'?>"></script>
+    
     <div class="row">
         <div class="col-12 pt-2"></div>
         <div class="col-12 col-md-4 pb-2">
@@ -75,6 +76,7 @@ $lang = 'en';
 
                     <div id="jd-logrig-module-<?php echo $module->id; ?>" class="jd-register-login-wrapper jd-clearfix">
                     <div class="jd-register-login-container jd-clearfix">
+                    <p style="width:100%;text-align:center">Inicia sesion o registrate en la comunidad <b>Publimotos</b></p><br>
                     <?php if(isset($layout ) && $layout  == 1){ ?>
                     <ul class="jd-register-login-tab">
                         <li class="jd-inputbox-control jd-control-check-raido"><input class="jd-form-checkbox-radio <?php echo (isset($view) && $view  == 1) ? 'active' : ''; ?>" type="radio" value="1" name="view" id="login_view" data-tab-target="#jd-login-container-<?php echo $module->id; ?>" <?php echo (isset($view) && $view==1 ) ? 'checked="checked"' : ''; ?> >
@@ -119,22 +121,23 @@ $lang = 'en';
                                 <div class="jd-button-control">
                                     <!--<input type="hidden" value="login" name="module<?php echo $module->id; ?>">-->
                                     <button type="submit" tabindex="0" id="login_submit" name="Submit" class="jd-form-button"><?php echo JText::_('JLOGIN') ?></button>
+                                    <input type="hidden" id="urlbase" value="<?php echo JURI::base(); ?>"/>
                                     <!--<input type="hidden" name="option" value="com_users" />
                                     <input type="hidden" name="task" value="user.login" />-->
                                     <!--<input type="hidden" name="return" value="<?php echo $return; ?>" />-->
                                     <?php echo JHtml::_('form.token'); ?>
                                 </div>
                             </form>
-                            <!--<div class="jd-list-wrapper">
+                            <div class="jd-list-wrapper">
                                 <div class="jd-list-group">
-                                    <a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>" class="jd-list-block ForgotUser">
+                                    <!--<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>" class="jd-list-block ForgotUser">
                                         <?php echo JText::_('MOD_REGISTERLOGIN_FORGOT_YOUR_USERNAME'); ?>
-                                    </a>
+                                    </a>-->
                                     <a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>" class="jd-list-block ForgotpPass">
                                         <?php echo JText::_('MOD_REGISTERLOGIN_FORGOT_YOUR_PASSWORD'); ?>
                                     </a>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                         <!-- End jd login container -->
                         
@@ -240,22 +243,8 @@ $lang = 'en';
         (function($) {
            
             $('#jd-logrig-module-<?php echo $module->id; ?>').jdRegisterLogin();
-            <?php if(!$params->get('ajax_registration')){ ?>
-                $('#registration_form').validate({ // initialize the plugin
-                    rules: {
-                        'terms[]': {
-                            required: true,
-                            maxlength: 2
-                        }
-                    },
-                    messages: {
-                        'terms[]': {
-                            required: "You must check at least 1 box",
-                            maxlength: "Check no more than {0} boxes"
-                        }
-                    },
-                });
-            <?php } ?>
+            
+                
         }(jQuery))
 
         function previewpass() {
