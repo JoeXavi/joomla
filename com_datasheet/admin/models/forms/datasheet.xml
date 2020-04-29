@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+				name="id"
+				type="hidden"
+				/>
+		<field
+				name="name"
+				type="text"
+				label="COM_DATASHEET_ITEM_NAME_LABEL"
+				description="COM_DATASHEET_ITEM_NAME_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+		<field
+				name="description"
+				type="textarea"
+				label="COM_DATASHEET_ITEM_DESCRIPTION_LABEL"
+				description="COM_DATASHEET_ITEM_DESCRIPTION_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				rows="5"
+				cols="10"
+				/>
+		<field
+				name="relations"
+				type="sql"
+				label="COM_DATASHEET_ITEM_RELATIONS_LABEL"
+				description="COM_DATASHEET_ITEM_RELATIONS_DESCRIPTION"
+				query="SELECT * FROM #__datasheet_product where type_id=1"
+				key_field="id"
+				multiple="multiple"
+				value_field="name"
+				/>
+		<field 	
+				name="img_default" 
+				type="media" 
+				directory="/images/"
+				/>
+		<field 
+				name="galery_folder" 
+				type="folderlist" default="" label="Select a folder" directory="images" filter="" exclude="" stripext="" />
+
+		<field
+				name="type_id"
+				type="sql"
+				label="COM_DATASHEET_ITEM_TYPE_LABEL"
+				query="SELECT * FROM #__datasheet_product_type "
+				key_field="id"
+				value_field="name"
+				/>
+		<field 
+			name="state" 
+			type="list" 
+			default="active" 
+			label="COM_DATASHEET_ITEM_STATE_LABEL" 
+			description="COM_DATASHEET_ITEM_STATE_DESC">
+				<option value="inactive">Inactivo</option>
+				<option value="active">Activo</option>
+				</field>
+
+		
+	</fieldset>
+</form>

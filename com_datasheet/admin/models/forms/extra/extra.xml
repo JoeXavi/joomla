@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<field
+		name="ignored"
+		type="number"
+		label="Number"
+		step="0.1"
+		class="inputbox"
+		required="true" >
+        </field>
+	<field name="time" 
+		type="mytime"
+		label="Enter time"
+		required="true"
+		class="inputbox" >
+        </field>
+</form>

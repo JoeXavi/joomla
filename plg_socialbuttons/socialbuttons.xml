@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content">
+<name>plg_content_socialbuttons</name>
+<creationDate>April 2020</creationDate>
+<author>Jose Javier Saldaña Alfonso</author>
+<authorEmail>joseph.xavi.sa@gmail.com</authorEmail>
+<authorUrl>idso.services</authorUrl>
+<copyright>Copyright (C) 2020 Open Source Matters. All rights reserved</copyright>
+<license>License GNU/GPL</license>
+<version>1.0</version>
+<description>Añade botones de redes sociales despues de imagen principal</description>
+<files>
+    <filename plugin="forceregister">socialbuttons.php</filename>
+    <folder>css</folder>
+    <folder>js</folder>
+    <folder>languaje</folder>
+</files>
+<languages folder="./languaje/es-CO">
+		<language tag="es-CO">es-CO.plg_content_socialbuttons.sys.ini</language>
+		<language tag="es-CO">es-CO.plg_content_socialbuttons.ini</language>
+</languages>
+<config>
+		
+</config>
+</extension>
