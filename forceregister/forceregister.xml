@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.1" type="plugin" group="content">
+<extension version="3.1" type="plugin" group="content" method="upgrade">
 <name>plg_content_forceregister</name>
 <creationDate>April 2020</creationDate>
 <author>Jose Javier Saldaña Alfonso</author>
@@ -7,7 +7,7 @@
 <authorUrl>idsopublicidad.com</authorUrl>
 <copyright>Copyright (C) 2020 Open Source Matters. All rights reserved</copyright>
 <license>License GNU/GPL</license>
-<version>1.0</version>
+<version>1.1</version>
 <description>A traves de este plugin se oculta parte del contenido y forza registrarse al visitante</description>
 <files>
    <filename plugin="forceregister">forceregister.php</filename>

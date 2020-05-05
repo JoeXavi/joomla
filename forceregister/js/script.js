@@ -50,6 +50,8 @@ function hiddeContent(){
 function load(){
     
     let registerUser = localStorage.getItem("RegisterUser");
+    let cookitRegister = document.cookie.replace(/(?:(?:^|.*;\s*)RegisterUser\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    //console.log('cookitRegister',cookitRegister);
     let ifloguin = document.getElementById("ifloguin");
     if(ifloguin.value == 1 ){
         let SesionUser = sessionStorage.getItem("sesionuserpublimotos")
@@ -58,7 +60,10 @@ function load(){
         }
     }
     else{
-        if(!registerUser) {
+        if(registerUser || cookitRegister) {
+           
+        }
+        else {
             hiddeContent();
         }
     }

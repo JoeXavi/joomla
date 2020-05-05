@@ -23,6 +23,6 @@ function loadFields(id){
         success: function (response) {
             let json = JSON.parse(response);
             //console.log()
-            jQuery(".span6").append(json.data);   
+            jQuery("#contdatasheet").html(json.data);   
         }})
 }

@@ -94,13 +94,14 @@ jQuery(document).ready(function () {
 						jQuery('#error_message1').html("<b>Excelente :)</b> Estas registrado, se ha enviado un correo de activacion, revisa en spam si no lo vez en bandeja de entrada</br><b>Puedes seguir navegando en los articulos de Publimotos</b> <a href='"+jQuery('#urlbase').val()+"'>>AQUI<</a> ");
 						scroll();
 						localStorage.setItem("RegisterUser",true);
+						document.cookie = "RegisterUser=true;path=/;expires=Thu, 31 Dec 2099 23:59:59 UTC;";
 						sessionStorage.setItem("sesionuserpublimotos",true)
 						success();
 						jQuery('#login_view').click();
 					}
 				},
 				error: function (e) {
-					alert("error");
+					//alert("error");
 					jQuery('.regload').hide();
 					submit.removeAttr('disabled');
 					console.log(e);
@@ -134,6 +135,7 @@ jQuery(document).ready(function () {
 						scroll(1)
 						success();
 						localStorage.setItem("RegisterUser",true);
+						document.cookie = "RegisterUser=true;path=/;expires=Thu, 31 Dec 2099 23:59:59 UTC;";
 						sessionStorage.setItem("sesionuserpublimotos",true)
 					}
 					else {

@@ -33,6 +33,7 @@ let startApp = function() {
                                 success();
                                 jQuery('#error_message1').focus();
                                 localStorage.setItem("RegisterUser",true);
+                                document.cookie = "RegisterUser=true;path=/;expires=Thu, 31 Dec 2099 23:59:59 UTC;";
                                 sessionStorage.setItem("sesionuserpublimotos",true)
                                 }
                             else if(response === "register"){

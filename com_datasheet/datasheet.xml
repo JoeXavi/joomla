@@ -10,7 +10,7 @@
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
 	<!--  The version string is recorded in the components table -->
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<!-- The description is optional and defaults to the name -->
 	<description>add datasheet of motorcycles and motorcycle parts to article content</description>
 <!-- Runs on install/uninstall/update; New in 2.5 -->
@@ -46,6 +46,7 @@
 		<filename>datasheet.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
+		<folder>assets</folder>
 	</files>
 
 	<administration>

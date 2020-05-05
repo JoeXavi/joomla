@@ -16,14 +16,12 @@
 				/>
 		<field
 				name="description"
-				type="textarea"
+				type="editor"
 				label="COM_DATASHEET_ITEM_DESCRIPTION_LABEL"
 				description="COM_DATASHEET_ITEM_DESCRIPTION_DESC"
-				size="40"
+				filter="safehtml"
 				class="inputbox"
 				default=""
-				rows="5"
-				cols="10"
 				/>
 		<field
 				name="relations"
@@ -41,14 +39,29 @@
 				directory="/images/"
 				/>
 		<field 
-				name="galery_folder" 
+				name="gallery_folder" 
 				type="folderlist" default="" label="Select a folder" directory="images" filter="" exclude="" stripext="" />
-
+		<field
+				name="url_video"
+				type="text"
+				label="COM_DATASHEET_ITEM_VIDEO_LABEL"
+				description="COM_DATASHEET_ITEM_VIDEO_DESC"
+				class="inputbox"
+				default=""
+				/>
 		<field
 				name="type_id"
 				type="sql"
 				label="COM_DATASHEET_ITEM_TYPE_LABEL"
 				query="SELECT * FROM #__datasheet_product_type "
+				key_field="id"
+				value_field="name"
+				/>
+		<field
+				name="marca_id"
+				type="sql"
+				label="COM_DATASHEET_ITEM_BRAND_LABEL"
+				query="SELECT * FROM #__datasheet_product_brand "
 				key_field="id"
 				value_field="name"
 				/>

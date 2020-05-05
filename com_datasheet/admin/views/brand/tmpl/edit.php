@@ -17,19 +17,16 @@ defined('_JEXEC') or die('Restricted access');
         <fieldset class="adminform">
             <legend><?php echo JText::_('COM_DATASHEET_DATASHEET_DETAILS'); ?></legend>
             <div class="row-fluid">
-                <div class="span10">
+                <div class="span6">
                     <?php 
                         foreach($this->form->getFieldset() as $field) {
                             echo $field->renderField();        
                         }
                     ?>
                 </div>
-                <div class="span10" id="contdatasheet">
-                   
-                </div>
             </div>
         </fieldset>
     </div>
-    <input type="hidden" name="task" value="datasheet.edit" />
+    <input type="hidden" name="task" value="brand.edit" />
     <?php echo JHtml::_('form.token'); ?>
 </form>

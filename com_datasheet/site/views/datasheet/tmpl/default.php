@@ -9,42 +9,36 @@
  
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-?>
-<?php 
+JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
 JHtml::_('jquery.framework');
 JHtml::_('bootstrap.framework');
-
-use Joomla\CMS\Factory;
-$input = Factory::getApplication()->input;
-$datasheet = $input->get('datasheet', '1', 'string');
-$db = JFactory::getDbo();
-$query = $db->getQuery(true);
-$query->select('*');
-$query->from('#__datasheet_product');
-$query->where('id = '.$db->quote($datasheet));
-$db->setQuery($query);
-$result =  $db->loadObject();
-//echo $p1; 
-//var_dump($result);
+JHtml::_('jquery.ui');
+$url = JUri::base() . 'components/com_datasheet/assets/css/style.css';
+$document = JFactory::getDocument();
+$document->addStyleSheet($url);
 ?>
-<div>
+
+
+
     <div class="container mt-5">
-    <div class="motos enduro">    
+    <div class="">    
         <div class="moto honda">
-          <img src="<?php echo JURI::root()."/".$result->img_default;?>" width="100%" class="rounded" alt="honda xr 190">
-          <h1 class="bg-dark text-white text-center"><?php echo $result->name ?></h1>
-        <div class="entry-highlights bg-dark text-white text-center"> 184.4 cc | 127 kg | 16 hp @ 8500 rpm | 2.750 € | 16.2 nm </div>
+          <img src="<?php echo JURI::root()."".$this->result->img_default;?>" width="100%" class="rounded" alt="<?php echo $this->result->name ?>">
+          <h1 class="text-center" style="margin:0; background: #f47c14; color: #fff; text-rendering: optimizeLegibility;  font-weight: bold;
+  text-shadow: 2px 2px 0px #f47c14, 4px 4px 0px rgba(0, 0, 0, 0.2); padding-bottom:5px "><?php echo $this->result->name ?></h1>
+          <div class="entry-highlights bg-dark text-white text-center" style="background: #f47c14; color: #fff; margin-top:3px;">
+          Detalles: <?php  echo $this->tiny ?></div>
     </div></div>
-    </div>
+</div>
 
     <div  class="container">
       <div class="row">
-          <div class="col-md-8">
-              <div class="header-content-center mt-4">
-               <a href="https://www.publimotos.com/mactualidad/3062-gixxer-250-vs-fz-25-vs-cb-250-twister-comparativo" class="btn btn-outline-secondary btn-lg #f47c14 btn-block"><h4>Gixxer 250 vs FZ 25 vs CB 250 Twister - Comparativo</h4></a>
-              </div>
+          <div class="col-md-8 pb-2">
+              
+              <!--<a href="https://www.publimotos.com/mactualidad/3062-gixxer-250-vs-fz-25-vs-cb-250-twister-comparativo" class="btn btn-light btn-lg">Gixxer 250 vs FZ 25 vs CB 250 Twister - Comparativo</a>
+              
               <p class="h5 text-justify mt-4">Rueda delantera con sistema ABS para dar más seguridad y estabilidad al piloto. Freno trasero marca NISSIN complementa perfectamente el sistema de frenado.</p>
-              <br>
+              <br>-->
             <!--div class="text-center mt-6">
                 <h2 class="display-6">Costo de la Honda xre 190 </h1>
                 <p class="text-justify mt-4"> El costo de la <strong>HONDA XRE 190 es 2750 € aproximadamente $11'700.000, </strong> Honda quiere abrirse paso  en uno de los segmentos más populares de nuestro país, para lo cual planea producir una nueva plataforma de 200cc.</p>
@@ -54,151 +48,176 @@ $result =  $db->loadObject();
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-content-center ">
-                        <div class="text-center ">
-                            <h2 class="display-5 text-sm-center">Datos tecnicos</h1>
-                            <p  class="text-justify mt-4"><?php echo $result->description ?></p>
+                        <div class="">
+                            <h3 class="display-5 text-center">Interesante de <?php echo $this->result->name ?></h3>
+                            <p  class="text-justify mt-4"><?php echo $this->result->description ?></p>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php
+            if($this->result->url_video <> "") {
+              $skinvideo = JUri::base() . 'components/com_datasheet/assets/css/vsj-skin.css';
+              $document->addStyleSheet('https://vjs.zencdn.net/7.7.5/video-js.css');
+              $document->addStyleSheet($skinvideo);
+            ?>
+            <div class="row">
+              <div class="col-md-12"><hr>
+                <div id="cont-video">
+                  <video
+                    id="vid1"
+                    class="video-js vjs-default-skin"
+                    controls
+                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "<?php echo $this->result->url_video ?>"}] }'
+                  >
+                  </video>
+                </div>
               
+              </div>
+            </div>
+            <script>
+              let contVideo = document.getElementById("cont-video");
+              let Video = document.getElementById("vid1");
+              console.log("Ancho",Video.width)
+              Video.width = contVideo.offsetWidth;
+              Video.height = contVideo.offsetWidth * 0.5625;
+            </script>
+             <?php 
+            
+            $document->addScript('https://vjs.zencdn.net/7.7.5/video.js');
+            $document->addScript(JURI::base() .'components/com_datasheet/assets/js/youtube.min.js');  
+            } 
+          
+            if($this->result->gallery_folder <> "") {
+            ?>
             <div class="row">
                   <div class="col-md-12"><hr>
                     <div class="header-content-right mt-5">
                       <div class="text-center-sm">  
-                        <h2 class="display-5 text-center"> GALERIA HONDA XRE 190 </h2>
+                        <h3 class="display-5 text-center">Galeria <?php echo $this->result->name ?></h3>
                         <div class=" text-left mt-5">
-          
-                          <div id="carouselExampleFade" class="carousel slide carousel-fade " data-ride="carousel">
-                            <div class="carousel-inner text-center">
-                              <div class="carousel-item active ">
-                                <img src="img/honda-costado.png" class="d-block w-100"  alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/honda-der.png" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/honda-frente.png" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/hondallanta.png" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/honda1.png" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/honda-luces.png" class="d-block w-100 " alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/manejo.png" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/hondamotor.png" class="d-block w-100 " alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="img/cola.png" class="d-block w-100" alt="...">
-                              </div>
+                          <div class="slider">
+                              <?php 
+                                $dir = "./images/".$this->result->gallery_folder;
+                                $all_files = scandir($dir);
+                                $init = 0;
+                                for ($i=0; $i<count($all_files); $i++){
+                                  $image_name = $all_files[$i];
+                                  $supported_format = array('gif','jpg','jpeg','png');
+                                  $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                                 
+                                  if (in_array($ext, $supported_format))
+                                      {
+                                        ?>
+
+                                        <div class="carousel-item <?php if($init == 0) {echo "active"; $init=1;}?>">
+                                          <img src="<?php echo JURI::root()."images/".$this->result->gallery_folder."/".$image_name ?>" class="img-fluid" alt="...">
+                                        </div>
+                                      <?php 
+                                      } else {
+                                          continue;
+                                      }
+                                  }
+                          
+                              ?>
                             </div>
-                            <a class="carousel-control-prev " href="#carouselExampleFade" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next " href="#carouselExampleFade" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </div>
+                         
+                          <script>
+                            jQuery(document).ready(function(){
+                               var ventana_ancho = $(window).width();
+                                if(ventana_ancho < 991)
+                                {
+                                  jQuery('.slider').bxSlider({
+                                    auto: true,
+                                    preloadImages: 'visible',
+                                    adaptiveHeight: true,
+                                    autoStart : true,
+                                    mode : 'fade',
+                                    speed: 1000});  
+                                }
+                                else{
+                                  jQuery('.slider').bxSlider({
+                                    auto: true,
+                                    preloadImages: 'visible',
+                                    adaptiveHeight: true,
+                                    autoStart : true,
+                                    mode : 'fade',
+                                    speed: 1000});   
+                                }
+                            });
+                          </script>
                         </div>
                       </div>
                     </div>
                   </div>
             </div>
-                  
-            <table class="table table-hover-responsive text-center">
-                       <thead>
-                         <tr>
-                           <td colspan="4" class="text-center h3"><strong> ficha tecnica</strong> </td>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         <tr>
-                           <th scope="row">1</th>
-                           <td>Cilindraje</td>
-                           <td>184.4 cc</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">2</th>
-                           <td>Tipo de Motor</td>
-                           <td>OHC, Monocilíndrico, 4 tiempos, Refrigerado por aire</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">3</th>
-                           <td>Potencia Máxima</td>
-                           <td>16 hp @ 8500 rpm</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">4</th>
-                           <td>Torque Máximo</td>
-                           <td>16.2 nm @ 6000 rpm</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">5</th>
-                           <td>Relación de Compresión</td>
-                           <td>9.5 a 1</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">6</th>
-                           <td> Tipo de Transmisión</td>
-                           <td>Mecánica 5 velocidades</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">7</th>
-                           <td> Rueda Delantera</td>
-                           <td>90 / 90 – 19</td>
-                           
-                         </tr>
-                         <tr>
-                           <th scope="row">8</th>
-                           <td>  Rueda Trasera</td>
-                           <td>110 / 90 – 17</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">9</th>
-                           <td> Dimensión Total</td>
-                           <td>2075 x 821 x 1179 mm</td>
-                           
-                         </tr>
-                         <tr>
-                           <th scope="row">10</th>
-                           <td> Distancia Entre Ejes </td>
-                           <td> 1358 mm</td>
-                         </tr>
-                         <tr>
-                           <th scope="row">11</th>
-                           <td>    Peso   </td>
-                           <td>127 kgs  </td>
-                           </tr>
-                         <tr>
-                           <th scope="row">12</th>
-                           <td> Freno Delantero </td>
-                           <td>  Disco con ABS </td>
-                         </tr>
-                         <tr>
-                           <th scope="row">13</th>
-                           <td> Freno Trasero </td>
-                           <td>Disco </td>
-                         </tr>
-                         <tr>
-                           <th scope="row">14</th>
-                           <td>  Suspensión Delantera </td>
-                           <td>Telescópica</td>
-                         </tr>
-                       </tbody>
-                     </table>
-            
+             <?php } 
+            if($this->datasheetSection <> ""){?>
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="text-center">Informacion general</h4>
+                  <?php 
+                  echo $this->datasheetSection;
+                  ?>
+                </div>
+              </div>
+            <?php } ?>
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="text-center">Ficha tecnica</h4>
+                  <table class="table table-hover-responsive text-center">
+                    <tbody>
+                    <?php 
+                      echo $this->datasheetTable;
+                    ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 pb-2">
+                  <h4 class="text-center">Fichas de motos Relacionados con <?php echo $this->result->name ?></h4>
+                   <div class="row">
+                  <?php
+                    foreach($this->datasheets_motorcycles as $motorcycles) {
+                      echo "<div class='col-xs-6 col-md-4' style='padding-bottom:10px'>";
+
+                      $ruta = JRoute::_('index.php?option=com_datasheet&datasheet='.$motorcycles->id);
+      
+                      echo '<div class="card" style="overflow:hidden">
+                        <img src="'. JURI::root().$motorcycles->img_default.'" class="card-img-top" alt="..." style="max-width:100%">
+                        <div class="card-body">
+                        <!--<h5 class="card-title">'.$motorcycles->name.'</h5>
+                          <p class="card-text"></p>-->
+                          <a href="'.$ruta.'" class="btn btn-primary stretched-link" style="width:100%"><b>'.$motorcycles->name.'</b><br>
+                          <small>'.$this->product_value($motorcycles).'</small></a>
+                        </div>
+                      </div>';
+                      echo "</div>";
+                    }
+                  ?>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="padding-bottom:20px">
+                  <h4 class="text-center">Articulos Relacionados con <?php echo $this->result->name ?></h4>
+                   <div class="row">
+                  <?php
+                    foreach($this->articles as $article) {
+                        
+                      $ruta = JRoute::_(ContentHelperRoute::getArticleRoute($article->id,$article->catid,$article->language));
+                        echo "<div class='col-md-6'>";
+                        echo "<a href='".$ruta."'>".JHtmlString::abridge($article->title,45)."</a>";
+                        echo "</div>";
+                    }
+                  ?>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4">
-              <div class="header-content-right mt-4">
+          <div class="col-md-4" style="margin-top:24px">
+              <div class="header-content-right ">
                 <div>
                 <form class="form-inline text-center">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -217,8 +236,4 @@ $result =  $db->loadObject();
           </div>
         </div>
       </div> 
-     </div>     
- 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+     
