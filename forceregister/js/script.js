@@ -16,11 +16,13 @@ function offset(el) {
 function hiddeContent(){
     let element = document.getElementById("forceregister");
         let elementBlur = document.getElementById("blurCont");
-        let mensaje = document.getElementsByClassName("contenedor_message");
+        let mensaje = document.getElementById("contenedor_message");
         
 
         element.classList.remove("displayNone");
         element.classList.add("forceregister");
+        element.classList.add("anuncios");
+
         let contElement = document.getElementsByClassName("article-content");
         element.style.width = contElement[0].clientWidth + "px";
         element.style.height = elementBlur.scrollHeight + "px";
@@ -29,20 +31,20 @@ function hiddeContent(){
         elementBlur.classList.add("blur");
         linkRegister = document.getElementById("clickregister");
         
-
-        body.onscroll=function(){
+        //console.log("Posicion de lemento: ",poElement)
+        document.onscroll=function(){
             let supportPageOffset = window.pageXOffset !== undefined;
             let isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
             let y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
-            
-            if(y-200>poElement && poElement+posContElement>y)
+            //console.log("Posicion: ",y)
+            if(y>poElement && poElement+posContElement>y)
                 {
-                    mensaje[0].classList.add("contenedor_message_fixed");
+                    mensaje.classList.add("contenedor_message_fixed");
 
                 }
             else
                 {
-                    mensaje[0].classList.remove("contenedor_message_fixed");
+                    mensaje.classList.remove("contenedor_message_fixed");
                 }
         }
 }
@@ -70,6 +72,9 @@ function load(){
 }
 
     docReady(function(){
-        load();
+        setTimeout(function(){
+            load();
+        },1000)
+        
     })
   

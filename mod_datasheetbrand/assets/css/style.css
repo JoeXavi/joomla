@@ -1,0 +1,39 @@
+
+@media screen and (max-width: 992px) {
+    .mobile-hidden{
+        display: none;
+    }
+  }
+
+  .relations{
+    padding-bottom:10px;
+    padding-left:3px;
+    padding-right:3px
+  }
+
+.titles{
+  border-bottom: 3px solid #868383;
+  border-right: 2px solid #868383;
+  border-left: 2px solid #868383;
+  border-top: 1px solid #868383;
+  background: #f4f4f4;
+  border-radius: 5px;
+  padding-bottom: 3px
+}
+
+.bx-wrapper{
+  margin-bottom: 20px !important;
+}
+.cont-enlace{
+  overflow: hidden;
+  padding: 0 !important;
+  border-radius:5px !important
+}
+
+.cont-enlace .card-body{
+  padding: 2px;
+}
+
+.cont-enlace .card-body .entry-highlights{
+  font-size: 12px !important;
+}

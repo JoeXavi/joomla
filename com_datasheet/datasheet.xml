@@ -9,11 +9,9 @@
 	<authorUrl>https://idso.services</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<!--  The version string is recorded in the components table -->
-	<version>0.0.3</version>
-	<!-- The description is optional and defaults to the name -->
+	<version>0.0.4</version>
 	<description>add datasheet of motorcycles and motorcycle parts to article content</description>
-<!-- Runs on install/uninstall/update; New in 2.5 -->
+
 	<scriptfile>script.php</scriptfile>
 
 	<install> <!-- Runs on install -->

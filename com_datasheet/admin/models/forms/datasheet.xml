@@ -40,7 +40,7 @@
 				/>
 		<field 
 				name="gallery_folder" 
-				type="folderlist" default="" label="Select a folder" directory="images" filter="" exclude="" stripext="" />
+				type="folderlist" default="" label="Select a folder" directory="images/datasheetmedia" filter="" exclude="" stripext="" />
 		<field
 				name="url_video"
 				type="text"

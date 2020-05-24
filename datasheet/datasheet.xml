@@ -12,6 +12,6 @@
             "adds the button 'datasheet' to the editor"
         </description>
         <files>
-            <filename plugin="test">datasheet.php</filename>
+            <filename plugin="datasheet">datasheet.php</filename>
         </files>
 </extension>

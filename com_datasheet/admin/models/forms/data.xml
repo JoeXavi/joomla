@@ -15,6 +15,15 @@
 				default=""
 				/>
 		<field
+				name="display_name"
+				type="text"
+				label="COM_DATASHEET_ITEM_DISPLAYNAME_LABEL"
+				description="COM_DATASHEET_ITEM_DISPLAYNAME_DESC"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+		<field
 				name="diminutive"
 				type="text"
 				label="COM_DATASHEET_ITEM_DIMINUTIVE_LABEL"

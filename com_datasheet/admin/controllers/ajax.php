@@ -61,7 +61,7 @@ class DatasheetControllerAjax extends JControllerLegacy
                         name="'.$name.'"
                         type="'.$result->type.'"
                         default=""
-                        label="Item '.$result->name.'"
+                        label="Item '.$result->display_name.'"
                         description="'.$result->description.'"
                         rows="3"
 				        cols="10" 
@@ -70,15 +70,15 @@ class DatasheetControllerAjax extends JControllerLegacy
                         name="'.$name.'"
                         type="'.$result->type.'"
                         default="0"
-                        label="Item '.$result->name.'"
+                        label="Item '.$result->display_name.'"
                         description="'.$result->description.'"
-                        step="1" 
+                        step="0.01" 
                         />'; break;
                 case "text": $xmlText = $xmlText . '<field 
                         name="'.$name.'"
                         type="'.$result->type.'"
                         default="0"
-                        label="Item '.$result->name.'"
+                        label="Item '.$result->display_name.'"
                         description="'.$result->description.'"
                         />';break;
                     }

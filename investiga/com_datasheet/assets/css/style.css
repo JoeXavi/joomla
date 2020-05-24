@@ -1,0 +1,12 @@
+#cont-video{
+    padding: 10px;
+    background: white;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+    .mobile-hidden{
+        display: none;
+    }
+  }

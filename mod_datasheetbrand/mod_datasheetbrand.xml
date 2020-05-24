@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Datasheet brands</name>
+    <author>Javier Saldaña</author>
+    <version>1.0.0</version>
+    <description>Render datasheet on article content.</description>
+    <files>
+        <filename>mod_datasheetbrand.xml</filename>
+        <filename module="mod_datasheetbrand">mod_datasheetbrand.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <folder>assets</folder>
+    </files>
+    <config>
+    </config>
+</extension>

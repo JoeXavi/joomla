@@ -36,7 +36,7 @@ abstract class DatasheetHelper extends JHelperContent
 		);
 
 		JHtmlSidebar::addEntry(
-			JText::_('COM_DATASHEET_SUBMENU_PRODUCTS'),
+			JText::_('COM_DATASHEET_ITEM_BRAND_LABEL'),
 			'index.php?option=com_datasheet&view=brands',
 			$submenu == 'brands'
 		);

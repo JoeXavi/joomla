@@ -54,6 +54,24 @@
 					description="PLG_CONTENT_FORCEREGISTER_PARAM_LINKREGISTER_DESCRIPTION"
 					>
 				</field>
+				<field 
+					name="functiont" 
+					type="radio" 
+					default="0" 
+					label="PLG_CONTENT_FORCEREGISTER_FT_PARAM_CHECK_LABEL" 
+					description="PLG_CONTENT_FORCEREGISTER_FT_PARAM_CHECK_DESCRIPTION" 
+					class="btn-group">
+						<option value="0">Todos</option>
+						<option value="1">Por articulo</option>
+				</field>
+				<field 
+					name="functionttext"
+					type="text"
+					default=""
+					label="PLG_CONTENT_FORCEREGISTER_FTT_PARAM_LINKREGISTER_LABEL"
+					description="PLG_CONTENT_FORCEREGISTER_FTT_PARAM_LINKREGISTER_DESCRIPTION"
+					>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

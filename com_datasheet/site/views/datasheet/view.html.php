@@ -1,4 +1,4 @@
-“<?php
+<?php
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_helloworld
@@ -11,6 +11,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
+jimport('joomla.application.module.helper');
 
 class DatasheetViewDatasheet extends JViewLegacy
 {
@@ -39,41 +40,38 @@ class DatasheetViewDatasheet extends JViewLegacy
 			if($result3->view_tiny == "tiny"){
 				$tiny = $tiny . " | ";
 				$tiny = $tiny . $result3->diminutive." ";
-				if($result3->type == "number")
+				if($result3->type == "number" or $clave == "precio")
 				$tiny = $tiny . number_format($value)." ";
 				else 
 				$tiny = $tiny . $value." ";
 				$tiny = $tiny . $result3->measurement;}
 		}}
 		return $tiny;
-}
-	
-	
-	function display($tpl = null)
-	{
-		
-		$input = Factory::getApplication()->input;
-		$datasheet = $input->get('datasheet', '1', 'string');
+	}
+
+	public function loadDatasheet($id){
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from('#__datasheet_product');
-		$query->where('id = '.$db->quote($datasheet));
+		$query->where('id = '.$db->quote($id));
 		$db->setQuery($query);
-		$this->result =  $db->loadObject();
+		$result =  $db->loadObject();
 
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from('#__datasheet_product_data_value');
-		$query->where('product_id = '.$db->quote($datasheet));
+		$query->where('product_id = '.$db->quote($id));
 		$db->setQuery($query);
 		$result2 =  $db->loadObject();
-		$this->product_value = json_decode($result2->data);
+		$product_value = json_decode($result2->data);
 
-		$this->tiny = "";
-		$this->datasheetTable = "";
-		$this->datasheetSection = "";
-		foreach($this->product_value as $clave => $value) {
+		$tiny = "";
+		$datasheetTable = "";
+		$datasheetSection = "";
+		$competitionproduct  = "";
+
+		foreach($product_value as $clave => $value) {
 			if($value<>""){
 				$query = $db->getQuery(true);
 				$query->select('*');
@@ -84,39 +82,115 @@ class DatasheetViewDatasheet extends JViewLegacy
 				
 			
 			if($result3->view_tiny == "tiny"){
-				$this->tiny = $this->tiny . " | ";
-				$this->tiny = $this->tiny . $result3->name.": ";
-				if($result3->type == "number")
-				$this->tiny = $this->tiny . number_format($value)." ";
+				$tiny = $tiny . " | ";
+				$tiny = $tiny . $result3->name.": ";
+				if($result3->type == "number" or $clave == "precio")
+				$tiny = $tiny . number_format($value)." ";
 				else 
-				$this->tiny = $this->tiny . $value." ";
-				$this->tiny = $this->tiny . $result3->measurement;}
+				$tiny = $tiny . $value." ";
+				$tiny = $tiny . $result3->measurement;}
 
 			if($result3->view_datasheet == "datasheet"){
-				$this->datasheetTable = $this->datasheetTable . "<tr>
-				<th>".$clave."</th>
+				if($clave == "precio")
+					$value = number_format($value);
+				$datasheetTable = $datasheetTable . "<tr>
+				<th>".$result3->display_name."</th>
 				<td>".$value."</td>
 				</tr>";
 			}
 
 			if($result3->view_datasheet == "section"){
-				$this->datasheetSection = $this->datasheetSection . '<div class="row">
+				$datasheetSection = $datasheetSection . '<div class="row">
 				<div class="col-md-12">
 				'.$value.'
 				</div></div>';
 			}
+
+			if($clave == "cilindrada"){
+				$cilindrada = $value;
+				$cilUp = $cilindrada + 150;
+				$cilDown = $cilindrada - 150;
+				$sqlcil = "select p.* from #__datasheet_product p inner join #__datasheet_product_data_value v on v.product_id=p.id where 1=1 and p.type_id=1 and state='active' and p.id<>".$id."";
+				$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")>".$cilDown."";
+				$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")<".$cilUp."";
+				//var_dump($sqlcil);
+				$db->setQuery($sqlcil);
+				$competitionproduct =  $db->loadObjectList();
+			}
 		}
 
-		$name_parts = explode(" ",$this->result->name);
+		
+		 
+		$name_parts = explode(" ",$result->name);
 		$sql = "select id, catid, alias, language, title from #__content where title like '%".$name_parts[0]."%' order by id DESC limit 10";
 		$db->setQuery($sql);
-		$this->articles =  $db->loadObjectList();
+		$articles =  $db->loadObjectList();
+				
+		$product_rels = "";
+		if((int)$result->type_id === 1){
+			$datasheets_motorcycles = "select * from #__datasheet_product where type_id=1 and state='active' and id<>".$id." order by id DESC limit 6";
+			$product_rels = "select * from #__datasheet_product where type_id<>1 and state='active' and relations like '%:\"".$id."\"%' order by id DESC limit 6";
+			$db->setQuery($datasheets_motorcycles);
+			$datasheets_motorcycles =  $db->loadObjectList();
+			} else {
+				$motorcycle_datasheet_rels = json_decode($result->relations);
+				$datasheets_motorcycles = new stdClass();
+				$i=0;
+				foreach($motorcycle_datasheet_rels as $key => $value){
+					$sql = "select * from #__datasheet_product where type_id=1 and state='active' and id=".(int) $value."";
+					$db->setQuery($sql);
+					$data =  $db->loadObjectList();
+					$datasheets_motorcycles->{$i}=$data[0];
+					$i++;				
+				}
+			}
+		
+		
+		
+		if($product_rels<>''){
+		$db->setQuery($product_rels);
+		$product_rels =  $db->loadObjectList();}
+		}			
+		return array('result'=>$result,
+			'product_value'=>$product_value,
+			'tiny'=>$tiny,
+			'datasheetTable'=>$datasheetTable,
+			'datasheetSection'=>$datasheetSection,
+			'articles'=>$articles,
+			'datasheets_motorcycles'=>(object) $datasheets_motorcycles,
+			'product_rels'=>$product_rels,
+			'competition'=>$competitionproduct);
+	}
+	
+	
+	function display($tpl = null)
+	{
+		
+		$input = Factory::getApplication()->input;
+		$datasheet = $input->get('datasheet', '1', 'string');
+		
+		$cache = JFactory::getCache();
+	
+		$return = $cache->call( array('DatasheetViewDatasheet','loadDatasheet'),$datasheet );
+		$this->result = $return['result'];
+		$this->product_value = $return['product_value'];
+		$this->tiny = $return['tiny'];
+		$this->datasheetTable = $return['datasheetTable'];
+		$this->datasheetSection = $return['datasheetSection'];
+		$this->articles = $return['articles'];
+		$this->datasheets_motorcycles = $return['datasheets_motorcycles'];
+		$this->product_rels = $return['product_rels'];
+		$this->competitionproduct = $return['competition'];
 
-		$this->datasheets_motorcycles = "select * from #__datasheet_product where type_id=1 and id<>".$datasheet." order by id DESC limit 10";
-		$db->setQuery($this->datasheets_motorcycles);
-		$this->datasheets_motorcycles =  $db->loadObjectList();
-	}		
-		// Display the view
+		$this->sidebar = JModuleHelper::getModules('sidebar');
+		$this->renderSidebar = "";
+		//var_dump($this->sidebar);
+		foreach ($this->sidebar as $module) {
+			//($module);
+			$this->renderSidebar = $this->renderSidebar . JModuleHelper::renderModule($module);
+			}
+		
+				// Display the view
 		parent::display($tpl);
 	}
 }

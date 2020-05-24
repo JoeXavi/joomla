@@ -1,0 +1,1 @@
+ALTER TABLE `#__datasheet_product_data` ADD `display_name`VARCHAR(500) NOT NULL;
