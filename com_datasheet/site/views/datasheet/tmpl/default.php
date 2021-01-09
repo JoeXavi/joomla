@@ -2,11 +2,16 @@
 
 defined('_JEXEC') or die('Restricted access');
 JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
-JHtml::_('jquery.framework');
+JHtml::_('bootstrap.framework');
+
 
 $url = JUri::base() . 'components/com_datasheet/assets/css/style.css';
 $document = JFactory::getDocument();
 $document->addStyleSheet($url);
+
+$url = JUri::base() . 'components/com_datasheet/assets/js/index.js';
+$document->addScript($url);
+
 $document->setMetaData('og:image',JURI::root()."".$this->result->img_default);
 $document->setMetaData('og:description',substr(strip_tags($this->result->description),0,200));
 $document->setMetaData('og:title',strip_tags($this->result->name));
@@ -59,20 +64,14 @@ $document->setTitle(strip_tags($this->result->name));
                     id="vid1"
                     class="video-js vjs-default-skin"
                     controls
-                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "<?php echo $this->result->url_video ?>"}] }'
+                    data-setup='{"fluid": true, "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "<?php echo $this->result->url_video ?>"}] }'
                   >
                   </video>
                 </div>
               
               </div>
             </div>
-            <script>
-              let contVideo = document.getElementById("cont-video");
-              let Video = document.getElementById("vid1");
-              console.log("Ancho",Video.width)
-              Video.width = contVideo.offsetWidth;
-              Video.height = contVideo.offsetWidth * 0.5625;
-            </script>
+            
              <?php 
             
             $document->addScript('https://vjs.zencdn.net/7.7.5/video.js');
@@ -115,7 +114,7 @@ $document->setTitle(strip_tags($this->result->name));
                          
                           <script>
                             jQuery(document).ready(function(){
-                               var ventana_ancho = $(window).width();
+                               var ventana_ancho = jQuery(window).width();
                                 if(ventana_ancho < 991)
                                 {
                                   jQuery('.slider').bxSlider({
@@ -154,15 +153,18 @@ $document->setTitle(strip_tags($this->result->name));
               </div>
             <?php } ?>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" >
                   <h4 class="text-center titles">Ficha tecnica</h4>
-                  <table class="table table-hover-responsive text-center">
-                    <tbody>
-                    <?php 
-                      echo $this->datasheetTable;
-                    ?>
-                    </tbody>
-                  </table>
+                  <div style="max-height: 200px;" id="table-datasheet">
+                    <table class="table table-hover-responsive text-center">
+                      <tbody>
+                      <?php 
+                        echo $this->datasheetTable;
+                      ?>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-lg btn-block" id="ver-mas-datasheet">Ver mas...</button>
                 </div>
               </div>
               <?php 

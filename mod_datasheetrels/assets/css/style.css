@@ -37,3 +37,7 @@
 .cont-enlace .card-body .entry-highlights{
   font-size: 12px !important;
 }
+
+.text-other .entry-highlights{
+  font-size: 12px;
+}

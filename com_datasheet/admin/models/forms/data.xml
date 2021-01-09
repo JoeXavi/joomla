@@ -76,8 +76,8 @@
             name="view_datasheet" 
             type="list" 
             default="datasheet" 
-            label="COM_DATASHEET_ITEM_STATE_LABEL" 
-            description="COM_DATASHEET_ITEM_STATE_DESC">
+            label="COM_DATASHEET_ITEM_VIEW_LABEL" 
+            description="COM_DATASHEET_ITEM_VIEW_DESC">
 				<option value="datasheet">Ficha tecnica</option>
 				<option value="section">Seccion</option>
 				</field>		
@@ -85,8 +85,8 @@
             name="view_tiny" 
             type="list" 
             default="tiny" 
-            label="COM_DATASHEET_ITEM_STATE_LABEL" 
-            description="COM_DATASHEET_ITEM_STATE_DESC">
+            label="COM_DATASHEET_ITEM_PREV_LABEL" 
+            description="COM_DATASHEET_ITEM_PREV_DESC">
 				<option value="tiny">En previsualizacion</option>
 				<option value="No">No</option>
 				</field>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Datasheet Other</name>
+    <author>Javier Saldaña</author>
+    <version>1.0.0</version>
+    <description>Render datasheet on article content.</description>
+    <files>
+        <filename>mod_datasheetother.xml</filename>
+        <filename module="mod_datasheetother">mod_datasheetother.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <folder>assets</folder>
+    </files>
+    <config>
+    </config>
+</extension>

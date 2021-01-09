@@ -24,7 +24,7 @@ if(is_array ($datasheet['result'])){
           <img src="'. JURI::root().$motorcycles->img_default.'" class="card-img-top" alt="..." style="max-width:100%">
           <div class="card-body">
             <b>'.$motorcycles->name.'</b><br>
-            <small>'.ModDatasheetbrandHelper::product_value($motorcycles).'</small>
+            <small>'.modDatasheetbrandHelper::product_value($motorcycles).'</small>
           </div>
         </div>';
         $cadena2 = $cadena2. "</a></div>";

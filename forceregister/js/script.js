@@ -22,6 +22,8 @@ function hiddeContent(){
         element.classList.remove("displayNone");
         element.classList.add("forceregister");
         element.classList.add("anuncios");
+        let URLactual = ' ' + window.location;
+        ga('send', 'event','Plugin_Register', "Vista", URLactual, 1);
 
         let contElement = document.getElementsByClassName("article-content");
         element.style.width = contElement[0].clientWidth + "px";
@@ -55,18 +57,20 @@ function load(){
     let cookitRegister = document.cookie.replace(/(?:(?:^|.*;\s*)RegisterUser\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     //console.log('cookitRegister',cookitRegister);
     let ifloguin = document.getElementById("ifloguin");
-    if(ifloguin.value == 1 ){
-        let SesionUser = sessionStorage.getItem("sesionuserpublimotos")
-        if(!SesionUser){
-            hiddeContent()
+    if(ifloguin){
+        if(ifloguin.value == 1 ){
+            let SesionUser = sessionStorage.getItem("sesionuserpublimotos")
+            if(!SesionUser){
+                hiddeContent()
+            }
         }
-    }
-    else{
-        if(registerUser || cookitRegister) {
-           
-        }
-        else {
-            hiddeContent();
+        else{
+            if(registerUser || cookitRegister) {
+            
+            }
+            else {
+                hiddeContent();
+            }
         }
     }
 }

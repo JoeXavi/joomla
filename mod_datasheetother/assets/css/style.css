@@ -1,18 +1,27 @@
-#cont-video{
-    background: white;
-    box-sizing: border-box;
-    max-width: 100%;
+.img-datasheet{
+  object-fit: cover;
+  min-height:80px;
 }
-
-#table-datasheet{
-  overflow: hidden;
+@keyframes back {
+  0% { background: #f47c14; }
+  30% { background: #A3530D; }
+  68%, 72% { background: #80410A;}
+  100% { background: #f47c14; }
+}
+.text-other h6{
+  animation: back 2s infinite;
 }
 
 @media screen and (max-width: 992px) {
     .mobile-hidden{
         display: none;
     }
+    .img-datasheet{
+      
+      min-height:100px;
+    }
   }
+
 
   .relations{
     padding-bottom:10px;
@@ -44,5 +53,9 @@
 }
 
 .cont-enlace .card-body .entry-highlights{
+  font-size: 12px !important;
+}
+
+.text-other .entry-highlights{
   font-size: 12px !important;
 }
