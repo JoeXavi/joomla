@@ -69,7 +69,7 @@ class DatasheetControllerAjax extends JControllerLegacy
                 case "number": $xmlText = $xmlText . '<field 
                         name="'.$name.'"
                         type="'.$result->type.'"
-                        default="0"
+                        default=""
                         label="Item '.$result->display_name.'"
                         description="'.$result->description.'"
                         step="0.01" 
@@ -77,7 +77,7 @@ class DatasheetControllerAjax extends JControllerLegacy
                 case "text": $xmlText = $xmlText . '<field 
                         name="'.$name.'"
                         type="'.$result->type.'"
-                        default="0"
+                        default=""
                         label="Item '.$result->display_name.'"
                         description="'.$result->description.'"
                         />';break;

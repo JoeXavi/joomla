@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	
-	<fieldset
-		name="permissions"
-		label="JCONFIG_PERMISSIONS_LABEL"
-		description="JCONFIG_PERMISSIONS_DESC"
-	>
-		<field
-			name="rules"
-			type="rules"
-			label="JCONFIG_PERMISSIONS_LABEL"
-			class="inputbox"
-			validate="rules"
-			filter="rules"
-			component="com_datasheet"
-			section="component"
-		/>
-	</fieldset>
+	<fields name="params">
+		<fieldset
+			name="params"
+			label="COM_DATASHEET_DISPLAY_OPTIONS"
+		>
+			<field name="sections" type="checkbox" label="SECTIONS_TITLE" description="SECTIONS_DESCRIPTION" value="1" />
+			<field
+				name="sections_by"
+				type="sql"
+				label="COM_DATASHEET_ITEM_BRAND_LABEL"
+				query="SELECT * FROM #__datasheet_product_data WHERE `state`='active'"
+				key_field="id"
+				value_field="name"
+			/>		
+		</fieldset>
+	</fields>
 </config>

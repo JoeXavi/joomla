@@ -1,0 +1,1 @@
+ALTER TABLE `#__datasheet_product` ADD `slug` VARCHAR(500) NOT NULL;

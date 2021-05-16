@@ -22,7 +22,7 @@ function loadFields(id){
         },
         success: function (response) {
             let json = JSON.parse(response);
-            //console.log()
+            console.log(json)
             jQuery("#contdatasheet").html(json.data);   
         }})
 }

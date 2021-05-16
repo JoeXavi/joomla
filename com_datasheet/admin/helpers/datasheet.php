@@ -53,6 +53,12 @@ abstract class DatasheetHelper extends JHelperContent
 			$submenu == 'datas'
 		);
 
+		JHtmlSidebar::addEntry(
+			JText::_('COM_DATASHEET_SUBMENU_SECTIONS'),
+			'index.php?option=com_datasheet&view=sections',
+			$submenu == 'sections'
+		);
+
 		// Set some global property
 		$document = JFactory::getDocument();
 		$document->addStyleDeclaration('.icon-48-helloworld ' .

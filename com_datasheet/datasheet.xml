@@ -3,13 +3,13 @@
 
 	<name>datasheet</name>
 	<!-- The following elements are optional and free of formatting constraints -->
-	<creationDate>April 2020</creationDate>
+	<creationDate>April 2021</creationDate>
 	<author>Jose Javier Saldaña Alfonso</author>
 	<authorEmail>joseph.xavi.sa@gmail.com</authorEmail>
 	<authorUrl>https://idso.services</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.4</version>
+	<version>0.0.7</version>
 	<description>add datasheet of motorcycles and motorcycle parts to article content</description>
 
 	<scriptfile>script.php</scriptfile>
@@ -43,6 +43,7 @@
 		<filename>index.html</filename>
 		<filename>datasheet.php</filename>
 		<filename>controller.php</filename>
+		<filename>router.php</filename>
 		<folder>views</folder>
 		<folder>assets</folder>
 	</files>

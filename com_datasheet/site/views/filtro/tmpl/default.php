@@ -7,8 +7,6 @@ JHtml::_('jquery.ui');
 $url = JUri::base() . 'components/com_datasheet/assets/css/style.css';
 $document = JFactory::getDocument();
 $document->addStyleSheet($url);
-
-
 ?>
   <div class="row margin-0" >
     <div class="col-md-8 pb-2" style="padding: 0;">
@@ -24,10 +22,7 @@ $document->addStyleSheet($url);
             <div class="col-md-11 col-xs-10 col-11"><h4 class="text-center first-title">Filtrar fichas t&eacutecnicas</h4></div>
           </div>
           
-          <form action="<?php 
-            $ruta2 = JRoute::link('site', 'index.php?option=com_datasheet&view=filtro');
-            echo $ruta2;
-          ?>" method="get" id="searchdatasheets_form" name="josForm" class="form-validate form-horizontal">
+          <form action="" method="get" id="searchdatasheets_form" name="josForm" class="form-validate form-horizontal">
               <div class="form-group row">
                 <div class="col-md-3 col-xs-4" style="padding-left:2px;padding-right:2px">  
                   <select class="form-control" name="jForm['brand']">
@@ -112,79 +107,15 @@ $document->addStyleSheet($url);
           </form>
         </div>
       </div>
-      <!-- MARCAS -->
-      <div class="row">
-        <div class="col-md-12">
-          <h4 class="text-center titles">Marcas</h4>
-          <?php if(is_array($this->brands))?>
-          <div class="slider">
-            <?php 
-              foreach ($this->brands as $brand){    
-                $url = JFilterOutput::stringURLSafe($brand->name);            
-                $ruta = JRoute::link('site', 'index.php?option=com_datasheet&view=marca&id='.$brand->id.'-'.$url);
-                ?>
-                  
-                  <a href="<?php echo $ruta ?>" class="">
-                    <img src="<?php echo JURI::root().$brand->logo ?>" alt="<?php echo $brand->name ?>" class="img-thumbnail" style="max-width:150px; max-heigt:150px">
-                    <div class="caption">
-                        <h5 class="text-center"><?php echo $brand->name ?></h5> 
-                    </div>
-                  </a>
-                <?php 
-                }
-        
-            ?>
-    
-          </div>
-          <script>
-            jQuery(document).ready(function(){
-              let ventana_ancho = $(window).width();
-              let config = {
-                pager:false,
-                moveSlides: 1,
-                slideMargin: 5,
-                preloadImages: 'visible',
-                adaptiveHeight: true,
-                autoStart : true,
-                responsive: true,
-                mode : 'horizontal',
-                slideWidth: 150,
-                minSlides: 2,
-                maxSlides: 6,
-                speed: 1500
-              }
-                
-              if(ventana_ancho<991){
-                config = {...config, auto:true}
-              }else{
-                config = {...config,
-                touchEnabled:false,
-                oneToOneTouch:false,
-                
-                };   
-              }       
-              jQuery('.slider').bxSlider(config);   
-                  
-              });
-            </script>
-      </div>
-
-      <?php 
-       if (is_array($this->allData) || is_object($this->allData)){
-         if(count($this->allData)>0){
-           for($i=0;$i<count($this->allData);$i++){
-             $section = $this->allData[$i];
-             $Section2 = $this->sections[$i];
-             //var_dump($section);
-      ?>
+      
       <div class="row">
         <div class="col-md-12 pb-2">
-          <h4 class="text-center titles"><?php echo $Section2->name ?></h4>
+          <h4 class="text-center titles">Cat&aacutelogo de fichas t&eacutecnicas <?php echo $this->result->name ?></h4>
             <div class="row">
           <?php
-            if (is_array($section) || is_object($section)){
-              if(count($section)>0){
-                foreach($section as $datasheet) {
+            if (is_array($this->datasheets) || is_object($this->datasheets)){
+              if(count($this->datasheets)>0){
+                foreach($this->datasheets as $datasheet) {
                   echo "<div class='col-xs-6 col-md-4 relations'>";
                   
                   $ruta = JRoute::link('site', 'index.php?option=com_datasheet&view=ficha&id='.$datasheet->id.'-'.$datasheet->slug);
@@ -209,25 +140,13 @@ $document->addStyleSheet($url);
             echo "<p style='padding:10px'>Ups... no hay resultados...</p>";
           ?>
           </div>
-          <form action="<?php 
-          echo $ruta2;
-          ?>" method="get" id="searchdatasheets_form" name="josForm" class="form-validate form-horizontal">
-          <input type="hidden" name="filter" value="hi">
-          <input type="hidden" name="jForm['section_id']" value="<?php echo $Section2->id; ?>">
-          <button type="submit" class="btn btn-secondary btn-lg btn-block"  name="Submit"id="ver-mas-datasheet">Ver mas...</button>
-        
-        </form>
-          
         </div>
       </div>
-      
-      <?php 
-         }
-        }
-      }
-
-      ?>
-
+      <div class="row">
+        <div class="col-md-12 pb-2">
+          <?php if(isset($this->pagination)) echo $this->pagination->getListFooter(); ?>
+        </div>
+    </div>
     </div>
    
 
@@ -244,8 +163,8 @@ $document->addStyleSheet($url);
   </div>
 </div>
 <script>
-  if (window.history.replaceState) { // verificamos disponibilidad
-    window.history.replaceState(null, null, window.location.href);
-  }
+  // if (window.history.replaceState) { // verificamos disponibilidad
+  //   window.history.replaceState(null, null, window.location.href);
+  // }
 </script>
      

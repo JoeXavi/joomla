@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class DatasheetViewDatasheets extends JViewLegacy
+class DatasheetViewSections extends JViewLegacy
 {
 	/**
 	 * Display the Hello World view
@@ -39,7 +39,7 @@ class DatasheetViewDatasheets extends JViewLegacy
 		}
 
 		// Set the submenu
-		DatasheetHelper::addSubmenu('datasheets');
+		DatasheetHelper::addSubmenu('sections');
 
 		// Set the toolbar
 		$this->addToolBar();
@@ -51,9 +51,8 @@ class DatasheetViewDatasheets extends JViewLegacy
     protected function addToolBar()
 	{
 		JToolbarHelper::title(JText::_('COM_DATASHEET_MANAGER_DATASHEETS'));
-		JToolbarHelper::addNew('datasheet.add');
-		JToolbarHelper::editList('datasheet.edit');
-		JToolbarHelper::deleteList(JText::_('COM_DATASHEET_DELETE_ITEM_QUESTION'), 'datasheets.delete');
-		//JToolBarHelper::preferences('com_datasheet');
+		JToolbarHelper::addNew('section.add');
+		JToolbarHelper::editList('section.edit');
+		JToolbarHelper::deleteList(JText::_('COM_DATASHEET_DELETE_ITEM_QUESTION'), 'sections.delete');
 	}
 }

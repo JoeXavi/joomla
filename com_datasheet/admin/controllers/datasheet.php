@@ -28,15 +28,31 @@ class DatasheetControllerDatasheet extends JControllerForm
 	}
     
     public function save(string $key = null, string $urlVar = null){
+
+        JRequest::checkToken() or jexit(JText::_('JInvalid_Token'));
+        
         $input = JFactory::getApplication()->input;
-        $data = $input->post->get('myform',array(), "array");
-        $this->jsonMyForm = json_encode($data);
-        $id = $input->post->get('jform',array(), "array");
-        $this->action = $id['id'];
+        $myform = $input->post->get('myform',array(), "array");
+        $this->jsonMyForm = json_encode($myform);
+        $jform = $input->post->get('jform',array(), "array");
+        $this->action = $jform['id'];
+
+        if($jform['name'] == ""){
+            return JFactory::getApplication()->enqueueMessage("Datasheet's name empty", 'error');
+            exit();}
+        
+        $slug = JFilterOutput::stringURLSafe($jform['name']);
+
+        $jform['slug'] = trim($slug);
+ 
+          // equivalent of $app = JFactory::getApplication();
+        $input->post->set('jform', $jform);
+
+
         parent::save($key, $urlVar);
     }
 
-    public function postSaveHook($model, $validData)
+    public function postSaveHook(&$model, $validData)
     {
         $item = $model->getItem();
         $id = $item->get('id');
@@ -49,6 +65,7 @@ class DatasheetControllerDatasheet extends JControllerForm
             $query->insert($db->quoteName('#__datasheet_product_data_value'))
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));
+
         }   
         else {
             $fields = array ( $db->quoteName('data') . ' = ' . $db->quote($this->jsonMyForm));

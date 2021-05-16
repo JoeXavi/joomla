@@ -53,6 +53,6 @@ class DatasheetViewTypes extends JViewLegacy
 		JToolbarHelper::title(JText::_('COM_DATASHEET_MANAGER_DATASHEETS'));
 		JToolbarHelper::addNew('type.add');
 		JToolbarHelper::editList('type.edit');
-		JToolbarHelper::deleteList('', 'type.delete');
+		JToolbarHelper::deleteList(JText::_('COM_DATASHEET_DELETE_ITEM_QUESTION'), 'types.delete');
 	}
 }

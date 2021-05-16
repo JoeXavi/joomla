@@ -1,11 +1,5 @@
-
-
-
-// create a folder inside your images folder
-
-
 <?php
-
+// create a folder inside your images folder
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
@@ -49,6 +43,42 @@ class com_datasheetInstallerScript
 	function update($parent) 
 	{
 		// $parent is the class calling this method
+		$db = JFactory::getDbo();
+		$sql = "select * from #__datasheet_product";
+		$db->setQuery($sql);
+		$data =  $db->loadObjectList();
+		foreach($data as $item){
+			//$query = $db->getQuery(true);
+			$slug = JFilterOutput::stringURLSafe($item->name);
+			$item->slug = $slug;
+			$db->updateObject('#__datasheet_product', $item, 'id', true);
+		}
+
+		$query = $db->getQuery(true);
+		$sql = "select * from #__datasheet_product_section";
+		$db->setQuery($sql);
+		$sections =  $db->loadObjectList();
+		if(is_array($sections)){
+			if(!isset($sections[0])){
+				$columns = array('name', 'description', 'state');
+				$values = array($db->quote('Fichas tecnicas'), $db->quote("Descripcion"), $db->quote('active'));
+
+				$query->insert($db->quoteName('#__datasheet_product_section'))
+				->columns($db->quoteName($columns))
+				->values(implode(',', $values));
+
+				$db->setQuery($query);
+				$db->execute();
+
+				foreach($data as $item){
+					$item->section_id = 1;
+					$db->updateObject('#__datasheet_product', $item, 'id', true);
+				}
+
+			}
+		}
+		
+
 		echo '<p>' . JText::sprintf('COM_DATASHEET_UPDATE_TEXT', $parent->get('manifest')->version) . '</p>';
 	}
  

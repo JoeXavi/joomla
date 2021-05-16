@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 jimport('joomla.application.module.helper');
 
-class DatasheetViewDatasheet extends JViewLegacy
+class DatasheetViewFicha extends JViewLegacy
 {
 	
 	public function product_value($product){
@@ -128,23 +128,35 @@ class DatasheetViewDatasheet extends JViewLegacy
 				
 		$product_rels = "";
 		if((int)$result->type_id === 1){
-			$datasheets_motorcycles = "select * from #__datasheet_product where type_id=1 and state='active' and id<>".$id." order by id DESC limit 6";
 			$product_rels = "select * from #__datasheet_product where type_id<>1 and state='active' and relations like '%:\"".$id."\"%' order by id DESC limit 6";
-			$db->setQuery($datasheets_motorcycles);
-			$datasheets_motorcycles =  $db->loadObjectList();
-			} else {
-				$motorcycle_datasheet_rels = json_decode($result->relations);
-				$datasheets_motorcycles = new stdClass();
-				$i=0;
-				foreach($motorcycle_datasheet_rels as $key => $value){
-					$sql = "select * from #__datasheet_product where type_id=1 and state='active' and id=".(int) $value."";
-					$db->setQuery($sql);
-					$data =  $db->loadObjectList();
-					$datasheets_motorcycles->{$i}=$data[0];
-					$i++;				
-				}
-			}
+		}
+		// if((int)$result->type_id === 1){
+		// 	$datasheets_motorcycles = "select * from #__datasheet_product where type_id=1 and state='active' and id<>".$id." order by id DESC limit 6";
+		// 	
+		// 	$db->setQuery($datasheets_motorcycles);
+		// 	$datasheets_motorcycles =  $db->loadObjectList();
+		// 	} else {
+				
+		// 	}
+		$motorcycle_datasheet_rels = json_decode($result->relations, true);
+		$datasheets_motorcycles = new stdClass();
+		$i=0;
+		// echo "motorcycle_datasheet_rels <br>";
+		// var_dump($motorcycle_datasheet_rels);
 		
+		//echo "<br>";
+		if(is_array($motorcycle_datasheet_rels)){
+			//echo "Entra en if <br>";
+			foreach($motorcycle_datasheet_rels as $key => $value){
+				$sql = "select * from #__datasheet_product where type_id=1 and state='active' and id=".(int) $value."";
+				$db->setQuery($sql);
+				$data =  $db->loadObjectList();
+				$datasheets_motorcycles->{$i}=$data[0];
+				$i++;				
+			}
+			// echo "<br>";
+			// var_dump($datasheets_motorcycles);
+		}
 		
 		
 		if($product_rels<>''){
@@ -167,11 +179,12 @@ class DatasheetViewDatasheet extends JViewLegacy
 	{
 		
 		$input = Factory::getApplication()->input;
-		$datasheet = $input->get('datasheet', '1', 'string');
+		$datasheet = $input->get('id', '1', 'string');
 		
-		$cache = JFactory::getCache();
+		$cache = JFactory::getCache('com_datasheet','callback');
+		
 	
-		$return = $cache->call( array('DatasheetViewDatasheet','loadDatasheet'),$datasheet );
+		$return = $cache->get(array($this, 'loadDatasheet'),array($datasheet) );
 		$this->result = $return['result'];
 		$this->product_value = $return['product_value'];
 		$this->tiny = $return['tiny'];

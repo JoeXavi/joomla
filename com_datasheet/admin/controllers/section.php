@@ -16,7 +16,6 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage  com_helloworld
  * @since       0.0.9
  */
-class DatasheetControllerBrand extends JControllerForm
+class DatasheetControllerSection extends JControllerForm
 {
-    
 }

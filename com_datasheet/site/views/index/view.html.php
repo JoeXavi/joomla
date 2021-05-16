@@ -40,26 +40,7 @@ class DatasheetViewIndex extends JViewLegacy
 					$tiny = $tiny . $result3->measurement;}
 		}}
 		return $tiny;
-		}
-
-	public function getAllDatasheets($lim0,$lim){
-
-		$db = JFactory::getDbo();
-		$sql = "select count(id) as total from #__datasheet_product";
-		$db->setQuery($sql);
-		$total =  $db->loadObjectList();
-		
-		$sql = "select * from #__datasheet_product order by id DESC";
-		$db->setQuery($sql,$lim0,$lim);
-		$datasheets =  $db->loadObjectList();
-		foreach($total as $item)
-			$pagination = new Pagination($item->total, $lim0, $lim);
-		//var_dump($pagination);
-		//var_dump($datasheets);
-		
-		return array('datasheets'=>$datasheets,'pagination'=>$pagination);
 	}
-	
 	
 	public function display($tpl = null)
 	{
@@ -68,75 +49,32 @@ class DatasheetViewIndex extends JViewLegacy
 		$this->brands = "select * from #__datasheet_product_brand order by name DESC";
 		$db->setQuery($this->brands);
 		$this->brands =  $db->loadObjectList();
-		
-		$input = JFactory::getApplication()->input;
-		$this->filter = $input->post->get('filter', null, 'word');
-		$lim0	= $input->get->get('start', 0, 'int');
-		$lim = 10;	
-		
-		if($this->filter==null){
-			
-			$cache = JFactory::getCache();
-			$cache->setCaching( 1 );
-			$return = $cache->call( array('DatasheetViewIndex','getAllDatasheets'), $lim0, $lim );
-			$this->pagination = $return['pagination'];
-			$this->datasheets = $return['datasheets'];
-			parent::display($tpl);
-		} else {
-			$this->data = (array) $input->post->get('jForm',null,'array'); 
-			$sql = "select * from #__datasheet_product p inner join #__datasheet_product_data_value v on v.product_id=p.id where 1=1";
-			$ver = 0 ;
-			foreach($this->data as $key => $value){
-				if($key == "'brand'" and $value<>'0'){
-					$sql = $sql ." and p.marca_id=".$value;
-					$ver = 1;
-				}
-				if($key == "'cilidrada_desde'" and $value<>'0'){
-					$sql = $sql . " and json_extract_c(data,\"$.cilindrada\")>=".$value;
-					$ver = 1;
-				}
-				if($key == "'cilidrada_hasta'" and $value<>'0'){
-					$sql  = $sql . " and json_extract_c(data,\"$.cilindrada\")<".$value;
-					$ver = 1;
-				}
-				if($key == "'precio_ini'" and $value<>'0'){
-					$sql = $sql . " and json_extract_c(data,\"$.precio\")>=".$value;
-					$ver = 1;
-				}
-				if($key == "'precio_fin'" and $value<>'0'){
-					$sql  = $sql . " and json_extract_c(data,\"$.precio\")<".$value;
-					$ver = 1;
-				}
-				if($key == "'year'" and $value<>'0'){
-					$sql  = $sql . " and json_extract_c(data,\"$.modelo\")=".$value;
-					$ver = 1;
-				}
-			}
 
-			if($ver == 0) {
-				$sql = "select count(id) as total from #__datasheet_product";
-				$db->setQuery($sql);
-				$total =  $db->loadObjectList();
-				
-				$sql = "select * from #__datasheet_product order by id DESC";
-				$db->setQuery($sql,$lim0,$lim);
-				$this->datasheets =  $db->loadObjectList();
-				foreach($total as $item)
-					$this->pagination = new Pagination($item->total, $lim0, $lim);
-			} else {
-				$db->setQuery($sql);
-				$this->datasheets =  $db->loadObjectList();
-			}
+		$this->sections = "select * from #__datasheet_product_section where state='active' order by name DESC";
+		$db->setQuery($this->sections);
+		$this->sections =  $db->loadObjectList();
 
-			//$db->setQuery($sql);
-			//$total =  $db->loadObjectList();
-			//foreach($total as $item)
-			//		$this->pagination = new Pagination($item->total, $lim0, $lim);
-			
-			//var_dump($sql);
-			$this->sidebar = JModuleHelper::getModules('sidebar');
+		$cache = JFactory::getCache('com_datasheet','callback');
+		$cache->setCaching( 1 );
 
-			parent::display($tpl);
+		$this->allData = [];
+		$cont = 0;
+		//var_dump($this->sections);
+
+		foreach($this->sections as $section){
+
+			$sql = "select * from #__datasheet_product WHERE section_id=".$section->id." ORDER BY id DESC LIMIT 6";
+			$db->setQuery($sql);
+			$this->allData[$cont] = $db->loadObjectList();
+			$cont++;
+
 		}
+
+		//var_dump(count($this->allData));
+
+		$this->sidebar = JModuleHelper::getModules('sidebar');
+		parent::display($tpl);
+		
 	}
 }
+

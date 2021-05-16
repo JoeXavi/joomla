@@ -18,7 +18,7 @@ $document->setMetaData('og:title',strip_tags($this->result->name));
 $document->setMetaData('description',substr(strip_tags($this->result->description),0,200));
 $document->setTitle(strip_tags($this->result->name));
 ?>
-<div class="row">
+<div class="row margin-0">
   <div class="col-md-12 col-xs-12" style="padding-left:2px;padding-right:2px ">
     <img src="<?php echo JURI::root()."".$this->result->img_default;?>" width="100%" class="rounded" alt="<?php echo $this->result->name ?>">
     <h1 class="text-center" style="margin:0; background: #f47c14; color: #fff; text-rendering: optimizeLegibility;  font-weight: bold;
@@ -44,9 +44,19 @@ $document->setTitle(strip_tags($this->result->name));
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-content-center ">
-                        <div class="">
+                        <div class="row">
+                          <div class="col-md-1 col-xs-2 col-1">
+                            <?php 
+                              $ruta = JRoute::link('site', 'index.php?option=com_datasheet&view=index');
+                              echo '<a href="'.$ruta.'" class="btn btn-primary custom-home" style="margin-top:24px"><span class="fa fa-home"></span></a>';
+                            ?>
+                          </div>
+                          <div class="col-md-11 col-xs-10">
                             <h3 class="display-5 text-center titles">Interesante de <?php echo $this->result->name ?></h3>
+                          </div>
+                          <div class="col-md-12">
                             <p  class="text-justify mt-4"><?php echo $this->result->description ?></p>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -168,7 +178,7 @@ $document->setTitle(strip_tags($this->result->name));
                 </div>
               </div>
               <?php 
-              
+              if(is_array($this->competitionproduct))
               if(count($this->competitionproduct)>0)
               {
               ?>
@@ -180,7 +190,7 @@ $document->setTitle(strip_tags($this->result->name));
                     foreach($this->competitionproduct as $motorcycles) {
                       echo "<div class='col-xs-6 col-md-4 relations'>";
 
-                      $ruta = JRoute::_('datasheet/?datasheet='.$motorcycles->id);
+                      $ruta = JRoute::_('index.php?option=com_datasheet&view=ficha&id='.$motorcycles->id.'-'.$motorcycles->slug);
       
                       echo '<a href="'.$ruta.'" class="btn btn-primary stretched-link cont-enlace" style="width:100%"><div class="card" style="overflow:hidden">
                         <img src="'. JURI::root().$motorcycles->img_default.'" class="card-img-top" alt="..." style="max-width:100%">
@@ -201,7 +211,7 @@ $document->setTitle(strip_tags($this->result->name));
               }
               ?>
               <?php 
-              
+              if(is_array($this->product_rels))
               if($this->product_rels<>"" && count($this->product_rels)>0)
               {
               ?>
@@ -213,7 +223,7 @@ $document->setTitle(strip_tags($this->result->name));
                     foreach($this->product_rels as $motorcycles) {
                       echo "<div class='col-xs-6 col-md-4 relations'>";
 
-                      $ruta = JRoute::_('datasheet/?datasheet='.$motorcycles->id);
+                      $ruta = JRoute::_('index.php?option=com_datasheet&view=ficha&id='.$motorcycles->id.'-'.$motorcycles->slug);
       
                       echo '<a href="'.$ruta.'" class="btn btn-primary stretched-link cont-enlace" style="width:100%"><div class="card" style="overflow:hidden">
                         <img src="'. JURI::root().$motorcycles->img_default.'" class="card-img-top" alt="..." style="max-width:100%">
@@ -247,7 +257,7 @@ $document->setTitle(strip_tags($this->result->name));
                     foreach($this->datasheets_motorcycles as $motorcycles) {
                       echo "<div class='col-xs-6 col-md-4 relations'>";
 
-                      $ruta = JRoute::_('datasheet/?datasheet='.$motorcycles->id);
+                      $ruta = JRoute::_('index.php?option=com_datasheet&view=ficha&id='.$motorcycles->id.'-'.$motorcycles->slug);
       
                       echo '<a href="'.$ruta.'" class="btn btn-primary stretched-link cont-enlace" style="width:100%"><div class="card" style="overflow:hidden">
                         <img src="'. JURI::root().$motorcycles->img_default.'" class="card-img-top" alt="..." style="max-width:100%">
