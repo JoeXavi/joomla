@@ -37,6 +37,16 @@
 				multiple="multiple"
 				value_field="name"
 				/>
+		<field
+				name="competition"
+				type="sql"
+				label="COM_DATASHEET_ITEM_COMPETITION_LABEL"
+				description="COM_DATASHEET_ITEM_COMPETITION_DESCRIPTION"
+				query="SELECT * FROM #__datasheet_product where type_id=1"
+				key_field="id"
+				multiple="multiple"
+				value_field="name"
+				/>
 		<field 	
 				name="img_default" 
 				type="media" 

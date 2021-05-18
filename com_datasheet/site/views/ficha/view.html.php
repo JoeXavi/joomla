@@ -69,7 +69,7 @@ class DatasheetViewFicha extends JViewLegacy
 		$tiny = "";
 		$datasheetTable = "";
 		$datasheetSection = "";
-		$competitionproduct  = "";
+		
 
 		foreach($product_value as $clave => $value) {
 			if($value<>""){
@@ -106,17 +106,17 @@ class DatasheetViewFicha extends JViewLegacy
 				</div></div>';
 			}
 
-			if($clave == "cilindrada"){
-				$cilindrada = $value;
-				$cilUp = $cilindrada + 150;
-				$cilDown = $cilindrada - 150;
-				$sqlcil = "select p.* from #__datasheet_product p inner join #__datasheet_product_data_value v on v.product_id=p.id where 1=1 and p.type_id=1 and state='active' and p.id<>".$id."";
-				$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")>".$cilDown."";
-				$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")<".$cilUp."";
-				//var_dump($sqlcil);
-				$db->setQuery($sqlcil);
-				$competitionproduct =  $db->loadObjectList();
-			}
+			// if($clave == "cilindrada"){
+			// 	$cilindrada = $value;
+			// 	$cilUp = $cilindrada + 150;
+			// 	$cilDown = $cilindrada - 150;
+			// 	$sqlcil = "select p.* from #__datasheet_product p inner join #__datasheet_product_data_value v on v.product_id=p.id where 1=1 and p.type_id=1 and state='active' and p.id<>".$id."";
+			// 	$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")>".$cilDown."";
+			// 	$sqlcil = $sqlcil . " and json_extract_c(data,\"$.cilindrada\")<".$cilUp."";
+			// 	//var_dump($sqlcil);
+			// 	$db->setQuery($sqlcil);
+			// 	$competitionproduct =  $db->loadObjectList();
+			// }
 		}
 
 		
@@ -129,24 +129,15 @@ class DatasheetViewFicha extends JViewLegacy
 		$product_rels = "";
 		if((int)$result->type_id === 1){
 			$product_rels = "select * from #__datasheet_product where type_id<>1 and state='active' and relations like '%:\"".$id."\"%' order by id DESC limit 6";
+			
 		}
-		// if((int)$result->type_id === 1){
-		// 	$datasheets_motorcycles = "select * from #__datasheet_product where type_id=1 and state='active' and id<>".$id." order by id DESC limit 6";
-		// 	
-		// 	$db->setQuery($datasheets_motorcycles);
-		// 	$datasheets_motorcycles =  $db->loadObjectList();
-		// 	} else {
-				
-		// 	}
+
 		$motorcycle_datasheet_rels = json_decode($result->relations, true);
+		
 		$datasheets_motorcycles = new stdClass();
 		$i=0;
-		// echo "motorcycle_datasheet_rels <br>";
-		// var_dump($motorcycle_datasheet_rels);
-		
-		//echo "<br>";
+
 		if(is_array($motorcycle_datasheet_rels)){
-			//echo "Entra en if <br>";
 			foreach($motorcycle_datasheet_rels as $key => $value){
 				$sql = "select * from #__datasheet_product where type_id=1 and state='active' and id=".(int) $value."";
 				$db->setQuery($sql);
@@ -154,10 +145,22 @@ class DatasheetViewFicha extends JViewLegacy
 				$datasheets_motorcycles->{$i}=$data[0];
 				$i++;				
 			}
-			// echo "<br>";
-			// var_dump($datasheets_motorcycles);
 		}
+
 		
+		$motorcycle_competition_rels = json_decode($result->competition, true);
+		$competition_motorcycles = new stdClass();
+		$i=0;
+		if(is_array($motorcycle_competition_rels)){
+			foreach($motorcycle_competition_rels as $key => $value){
+				$sql = "select * from #__datasheet_product where state='active' and id=".(int) $value."";
+				$db->setQuery($sql);
+				$data =  $db->loadObjectList();
+				$competition_motorcycles->{$i}=$data[0];
+				$i++;				
+			}
+		}
+
 		
 		if($product_rels<>''){
 		$db->setQuery($product_rels);
@@ -171,7 +174,7 @@ class DatasheetViewFicha extends JViewLegacy
 			'articles'=>$articles,
 			'datasheets_motorcycles'=>(object) $datasheets_motorcycles,
 			'product_rels'=>$product_rels,
-			'competition'=>$competitionproduct);
+			'competition'=>$competition_motorcycles);
 	}
 	
 	

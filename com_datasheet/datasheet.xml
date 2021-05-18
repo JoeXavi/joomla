@@ -9,7 +9,7 @@
 	<authorUrl>https://idso.services</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.7</version>
+	<version>1.0.0</version>
 	<description>add datasheet of motorcycles and motorcycle parts to article content</description>
 
 	<scriptfile>script.php</scriptfile>

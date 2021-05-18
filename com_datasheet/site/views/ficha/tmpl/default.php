@@ -178,8 +178,8 @@ $document->setTitle(strip_tags($this->result->name));
                 </div>
               </div>
               <?php 
-              if(is_array($this->competitionproduct))
-              if(count($this->competitionproduct)>0)
+              if(is_object($this->competitionproduct))
+              if(count((array) $this->competitionproduct)>0)
               {
               ?>
               <div class="row">

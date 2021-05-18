@@ -33,6 +33,13 @@ class DatasheetTableDatasheet extends JTable
 			$parameter->loadArray($array['relations']);
 			$array['relations'] = (string)$parameter;
 		}
+
+		if (isset($array['competition']) && is_array($array['competition']))
+		{
+			$parameter = new JRegistry;
+			$parameter->loadArray($array['competition']);
+			$array['competition'] = (string)$parameter;
+		}
 		return parent::bind($array, $ignore);
     }
 }
